@@ -4,7 +4,7 @@ displayCartElements();
 // fonction permettant de retourner l'URL du Serveur NodeJS (back).
 function getServerUrl()
 {
-    const SERVER_URL = "http://localhost:3000/"
+    const SERVER_URL = "http://localhost:3000/api/"
     return SERVER_URL;
 }
 

@@ -2,14 +2,13 @@
 // Si la requête est OK, on transforme en JSON, sinon NULL
 // Affichage des informations du produit, sinon affichage de l'erreur avec l'id récupéré.
 fetch(getServerUrl() + 'products/' + getIdParamater())
-    .then(response => response.ok ? response.json() : null).
-    then(product =>
-        product!=null? displayProductInformations(product) : displayError(getIdParamater()));
+    .then(reponse => { if (!reponse.ok) { throw Error(reponse.statusText) } return reponse.json() })
+    .then(product => product ? displayProductInformations(product) : displayError(getIdParamater()))
+    .catch((error) => { displayError(getIdParamater()); console.log(error); });
 
 // Fonction permettant de retourner l'URL du Serveur NodeJS (back).
-function getServerUrl()
-{
-    const SERVER_URL = "http://localhost:3000/"
+function getServerUrl() {
+    const SERVER_URL = "http://localhost:3000/api/"
     return SERVER_URL;
 }
 

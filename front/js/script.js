@@ -1,12 +1,13 @@
 // Fonction principale de la page d'accueil. Requêtage des produits via le back, transformation en JSON, puis appel de l'affichage des produits.
-fetch(getServerUrl() + 'api/products')
-.then(reponse => reponse.json())
-.then(products => displayAllProducts(products));
+fetch(getServerUrl() + 'products')
+    .then(reponse => { if (!reponse.ok) { throw Error(reponse.statusText) } return reponse.json() })
+    .then(products => { if (products && products.length > 0) { displayAllProducts(products); } else { displayErrorMessage(); } })
+    .catch((error) => { displayErrorMessage(); console.log(error); })
+
 
 // fonction permettant de retourner l'URL du Serveur NodeJS (back).
-function getServerUrl()
-{
-    const SERVER_URL = "http://localhost:3000/"
+function getServerUrl() {
+    const SERVER_URL = "http://localhost:3000/api/"
     return SERVER_URL;
 }
 
@@ -22,7 +23,6 @@ function displayAllProducts(products) {
         </article>
     </a> 
     */
-    console.log(products);
     const itemsWrapper = document.querySelector('#items');
 
     for (let product of products) {
@@ -52,4 +52,13 @@ function displayAllProducts(products) {
 
         itemsWrapper.appendChild(anchorElement);
     }
+}
+
+// Fonction permettant l'affichage d'une erreur concernant la non présence de produit.
+function displayErrorMessage() {
+    const itemsWrapper = document.querySelector('#items');
+    const errorInformationElement = document.createElement("p");
+    errorInformationElement.innerText = "Un problème est survenu. Veuillez réessayer ultérieurement.";
+
+    itemsWrapper.appendChild(errorInformationElement);
 }
