@@ -262,6 +262,7 @@ function orderedCart(event) {
   }
   else {
     alert("Votre panier est vide !");
+    location.reload();
   }
   event.preventDefault();
 }

@@ -103,7 +103,7 @@ function addToCart() {
             cart.push(product);
         }
         else {
-            cart[productIdInCart].quantity += nb;
+            cart[productIdInCart].quantity = parseInt(cart[productIdInCart].quantity) + nb;
         }
         localStorage.setItem("cart", JSON.stringify(cart));
 
