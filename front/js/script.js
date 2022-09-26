@@ -1,11 +1,14 @@
-
-import {getServerUrl} from './parameter.js';
-
 // Fonction principale de la page d'accueil. Requêtage des produits via le back, transformation en JSON, puis appel de l'affichage des produits.
 fetch(getServerUrl() + 'api/products')
 .then(reponse => reponse.json())
 .then(products => displayAllProducts(products));
 
+// fonction permettant de retourner l'URL du Serveur NodeJS (back).
+function getServerUrl()
+{
+    const SERVER_URL = "http://localhost:3000/"
+    return SERVER_URL;
+}
 
 // Fonction permettant l'affichage des produits. Création de la structure HTML et remplissage des informations liées aux produits.
 function displayAllProducts(products) {
